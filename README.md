@@ -27,10 +27,13 @@ In this project you will create a login page and request a token from the server
 Demonstrate your understanding of this Sprint's concepts by answering the following free-form questions. Edit this document to include your answers after each question. Make sure to leave a blank line above and below your answer so it is clear and easy to read by your project manager.
 
 - [ ] Explain what a token is used for.
+  - A token is tied to a user for a defined amount of time to let the server know who is making the request. The token is only issued after the user is authenticated.
 - [ ] What steps can you take in your web apps to keep your data secure?
+  - Hash tokens and passwords when they're being sent to and from the server.
 - [ ] Describe how web servers work.
+  - A web server is the back-end server that stores and processes data that it can serve to the front-end.
 - [ ] Which HTTP methods can be mapped to the CRUD acronym that we use when interfacing with APIs/Servers.
-
+  - GET POST PUT DELETE
 
 ## Project Set Up
 
@@ -63,7 +66,7 @@ The MVP of this project will be broken up between 2 stages. Follow each step.
 
 Build a login form to authenticate your users.
 
-- [ ] Construct an AXIOS request to retrieve a token from the server. You'll use this token to interact with the API
+- [ ] Construct an AXIOS request to retrieve a token from the server. You'll use athis token to interact with the API
 - [ ] Save the token to localStorage
 - [ ] Build a `axiosWithAuth` module to create an instance of axios with the authentication header
 - [ ] Build a `PrivateRoute` component and use it to protect a route that renders the `BubblesPage` component

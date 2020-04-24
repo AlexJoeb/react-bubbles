@@ -97,3 +97,42 @@ form {
     margin-top: 16px;
   }
 }
+
+.login {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center; align-items: center;
+  flex-direction: column;
+
+  background: #16171E;
+
+  h1 {
+    color:#E8E8E8;
+  }
+
+  form {
+    margin-top: 5px;
+
+    input + input, input + button {
+      margin-top: 5px;
+    }
+
+    input::placeholder, input, button {
+      color: #E8E8E8;
+    }
+
+    input, button {
+      background: #35363A;
+      border: 0;
+      border-radius: 5px;
+      padding: 5px;
+
+      &:active, &:focus {
+        outline: none;
+      }
+    }
+  }
+
+  &__errors { color: red; font-weight: bold;}
+}
