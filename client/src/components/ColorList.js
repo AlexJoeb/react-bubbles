@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { AxiosWithAuth } from '../utils/AxiosWithAuth';
+import Axios from "axios";
 
 const initialColor = {
   color: "",
@@ -10,6 +11,9 @@ const initialColor = {
 const ColorList = ({ colors, updateColors }) => {
   const [editing, setEditing] = useState(false);
   const [colorToEdit, setColorToEdit] = useState(initialColor);
+
+  const [colorName, setColorName] = useState('')
+  const [colorHex, setColorHex] = useState('000')
 
   const editColor = color => {
     setEditing(true);
@@ -34,8 +38,33 @@ const ColorList = ({ colors, updateColors }) => {
   };
 
   const deleteColor = color => {
-    // make a delete request to delete this color
+    console.log(color);
+    const { id } = color;
+    AxiosWithAuth().delete(`/api/colors/${id}`)
+      .then(({ data }) => {
+        updateColors([
+          ...colors.filter(color => color.id !== id),
+        ])
+      })
+      .catch(error => console.log(error));
   };
+
+  const addColor = e => {
+    e.preventDefault();
+
+    if (!colorName || !colorHex || (colorHex.length !== 3 && colorHex.length !== 6)) return;
+
+    AxiosWithAuth().post('/api/colors', {
+      color: colorName,
+      code: {
+        hex: `#${colorHex}`
+      }
+    })
+      .then(({ data }) => {
+        updateColors(data);
+    })
+    .catch(error => console.log(error));
+  }
 
   return (
     <div className="colors-wrap">
@@ -92,6 +121,11 @@ const ColorList = ({ colors, updateColors }) => {
       )}
       <div className="spacer" />
       {/* stretch - build another form here to add a color */}
+      <form onSubmit={addColor}>
+        <input type='text' placeholder='Color Name' value={colorName} onChange={({ target }) => setColorName(target.value)} />
+        <input type='text' placeholder='Color Hex' value={`#${colorHex}`} onChange={({ target }) => setColorHex(target.value.replace("#", ""))} />
+        <button type='submit'>Add Color</button>
+      </form>
     </div>
   );
 };
