@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from 'axios';
 import { AxiosWithoutAuth } from '../utils/AxiosWithAuth';
+import { useHistory } from 'react-router-dom'
 
 const Login = () => {
   // make a post request to retrieve a token from the api
@@ -9,6 +10,8 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
   const [errors, setErrors] = useState('')
+
+  const history = useHistory();
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -20,6 +23,7 @@ const Login = () => {
         setErrors('')
         const token = data.payload;
         localStorage.setItem('token', token);
+        history.push('/home');
       })
       .catch(error => {
         setErrors(error.message);
